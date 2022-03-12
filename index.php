@@ -77,8 +77,7 @@ $db = new MyDB();
         $news = $db->query($q);
     }
     ?>
-    
-    
+        
     <table border="1" class="table table-bordered" >
         <thead>
         <tr><th>#</th><th>date and time</th><th>currency</th><th>description</th><th>impact</th><th>...</th></tr>
