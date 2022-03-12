@@ -63,7 +63,7 @@ $db = new MyDB();
         <input type="text" name="description" size="10"  >
         <input type="submit" class="btn btn-success btn-sm">
         <a href="?" class="btn btn-warning btn-sm">Reload</a>
-        <button class="btn btn-default btn-sm" onclick="playSound('mixkit-cartoon-door-melodic-bell-110.wav')" type="button">Test Play</button>
+        <button class="btn btn-default btn-sm" onclick="playSound('mixkit-cartoon-door-melodic-bell-110.wav')" type="button">Test 2 Play</button>
     </form>
     <?php
     
