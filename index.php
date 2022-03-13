@@ -65,6 +65,8 @@ $db = new MyDB();
         <a href="?" class="btn btn-warning btn-sm">Reload</a>
         <button class="btn btn-default btn-sm" onclick="playSound('mixkit-cartoon-door-melodic-bell-110.wav')" type="button">Test Play</button>
     </form>
+    <a href="https://www.forexfactory.com/calendar" class="btn btn-link">Forexfactory</a>
+    <a href="https://academywave.com/forex-economic-calendar/" class="btn btn-link">Academy</a>
     <?php
     
     if (isset($_REQUEST['del'])) {
