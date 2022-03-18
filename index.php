@@ -1,5 +1,6 @@
 
 <?php
+#vahid.zahani@gmail.com - admin.projfa.ir
 date_default_timezone_set('asia/tehran');
 
 /**
@@ -16,15 +17,8 @@ class MyDB extends SQLite3
 
 $db = new MyDB();
 
-// $d=mktime(11, 14, 54, 8, 12, 2014);
-// echo "Created date is " . date("Y-m-d h:i:sa", $d);
 
-
-// $results = $db->query('SELECT * FROM tbl_news');
-//     while ($row = $results->fetchArray()) {
-//         echo $row['description'];
-//     }
-// ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,10 +30,20 @@ $db = new MyDB();
     <title>news fx</title>
 </head>
 <script>
+    var mytimer=0;
     function playSound(url) {
         const audio = new Audio(url);
         audio.play();
-        }
+    }
+    //repeat play sound for actived alarm
+    function fn_repeat_sound() {
+        setInterval(() => {
+            playmysound()
+        }, 5000);
+    }
+    function playmysound() {
+        playSound('mixkit-cartoon-door-melodic-bell-110.wav');
+    }
 </script>
 <body>
     <h4>Now: <?php echo date("Y/m/d - H:i",time());?></h4>
@@ -63,11 +67,11 @@ $db = new MyDB();
         <input type="text" name="description" size="10"  >
         <input type="submit" class="btn btn-success btn-sm">
         <a href="?" class="btn btn-warning btn-sm">Reload</a>
-        <button class="btn btn-default btn-sm" onclick="playSound('mixkit-cartoon-door-melodic-bell-110.wav')" type="button">Test 2 Play</button>
+        <button class="btn btn-default btn-sm" onclick="playmysound();" type="button">Test 2 Play</button>
     </form>
     <a href="https://www.forexfactory.com/calendar" class="btn btn-link">Forexfactory</a>
     <a href="https://academywave.com/forex-economic-calendar/" class="btn btn-link">Academy</a>
-    vahid zahani
+    
     <?php
     
     if (isset($_REQUEST['del'])) {
@@ -89,6 +93,7 @@ $db = new MyDB();
             <?php
             $results = $db->query('SELECT * FROM tbl_news order by time desc');
             $counter=0;
+            $min_of_timer=999999999;//this is timer for play sound alarm
             $arr = array("dark","light", "warning", "danger");
             $impact = array("","Low", "Medium", "High");
             while ($row = $results->fetchArray()) {
@@ -98,18 +103,24 @@ $db = new MyDB();
                 }
                 ?><tr class="table-<?php echo $arr[$row_style_code];?>">
                     <td><?php echo ++$counter; ?></td>
-                    <td><?php echo date("Y/m/d - H:i",$row['time']);?></td>
+                    <?php $timer=(int)(($row['time']-time())/60);if($timer<$min_of_timer && $timer-5>0)$min_of_timer=$timer;?>
+                    <td><?php echo date("Y/m/d - H:i",$row['time']);?> <b><?php echo $timer; ?> </b> minutes </td>
                     <td><?php echo $row['currency'];?></td>
                     <td><?php echo $row['description'];?></td>
-                    <td>
-                    <?php echo $impact[$row['impact']]."-".$row['impact'];?>
-                    </td>
+                    <td><?php echo $impact[$row['impact']]."-".$row['impact'];?></td>
                     <td><a href="?del=<?php echo $row['id'];?>" class="btn btn-outline-danger btn-sm" style="padding-top: 0;padding-bottom: 0;">X</a></td>
-                    </tr><?php
+                </tr><?php
             }
             ?>
         </tbody>
     </table>
+    <script>
+        mytimer=<?php echo $min_of_timer;?>;
+        mytimer-=5;
+        mytimer=mytimer*60*1000;
+        alert(mytimer);
+        const myTimeout = setTimeout(fn_repeat_sound, mytimer);
+    </script>
     <?php echo time(); ?>
 </body>
 </html>
