@@ -14,10 +14,7 @@ class MyDB extends SQLite3
         $this->open('news.db');
     }
 }
-
 $db = new MyDB();
-
-
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +24,8 @@ $db = new MyDB();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="icon" href="https://www.shareicon.net/data/16x16/2016/03/28/466566_blue_24x24.png" type = "image/x-icon">
     <title>news fx</title>
 </head>
 <script>
@@ -69,8 +68,8 @@ $db = new MyDB();
         <a href="?" class="btn btn-warning btn-sm">Reload</a>
         <button class="btn btn-default btn-sm" onclick="playmysound();" type="button">Test 2 Play</button>
     </form>
-    <a href="https://www.forexfactory.com/calendar" class="btn btn-link">Forexfactory</a>
-    <a href="https://academywave.com/forex-economic-calendar/" class="btn btn-link">Academy</a>
+    <a href="https://www.forexfactory.com/calendar" class="btn btn-link" target="_blank">Forexfactory</a>
+    <a href="https://academywave.com/forex-economic-calendar/" class="btn btn-link" target="_blank">Academy</a>
     
     <?php
     
@@ -108,7 +107,10 @@ $db = new MyDB();
                     <td><?php echo $row['currency'];?></td>
                     <td><?php echo $row['description'];?></td>
                     <td><?php echo $impact[$row['impact']]."-".$row['impact'];?></td>
-                    <td><a href="?del=<?php echo $row['id'];?>" class="btn btn-outline-danger btn-sm" style="padding-top: 0;padding-bottom: 0;">X</a></td>
+                    <td>
+                        <a href="?del=<?php echo $row['id'];?>" class="btn btn-outline-danger btn-sm" style="padding-top: 0;padding-bottom: 0;"><i class="bi-trash"></i></a>
+                        <a href="?" class="btn btn-outline-primary btn-sm" style="padding-top: 0;padding-bottom: 0;"><i class="bi-pencil-fill"></i></a>
+                    </td>
                 </tr><?php
             }
             ?>
@@ -116,12 +118,15 @@ $db = new MyDB();
     </table>
     <script>
         mytimer=<?php echo $min_of_timer;?>;
-        mytimer-=5;
-        mytimer=mytimer*60*1000;
-        alert(mytimer);
-        const myTimeout = setTimeout(fn_repeat_sound, mytimer);
+        if (mytimer!=999999999) {
+            mytimer=mytimer-5;
+            mytimer=mytimer*60*1000;
+            const myTimeout = setTimeout(fn_repeat_sound, mytimer);
+            alert(mytimer +" seconds - " + mytimer/60000 + " minutes - " + ((mytimer/60000)/60).toFixed(2) + " Hours");
+        }else{
+            alert("there is no NEWS item");
+        }
     </script>
-    <?php echo time(); ?>
 </body>
 </html>
 
