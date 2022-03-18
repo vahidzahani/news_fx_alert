@@ -67,6 +67,7 @@ $db = new MyDB();
     </form>
     <a href="https://www.forexfactory.com/calendar" class="btn btn-link">Forexfactory</a>
     <a href="https://academywave.com/forex-economic-calendar/" class="btn btn-link">Academy</a>
+    vahid zahani
     <?php
     
     if (isset($_REQUEST['del'])) {
