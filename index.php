@@ -41,7 +41,7 @@ $db = new MyDB();
         }, 5000);
     }
     function playmysound() {
-        playSound('mixkit-cartoon-door-melodic-bell-110.wav');
+        playSound('ding.wav');
     }
 </script>
 <body>
